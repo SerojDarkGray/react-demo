@@ -1,22 +1,36 @@
-import logo from './logo.svg';
+
+
+
 import './App.css';
+import Greeting from './Greeting.js'
+import User from './User.js'
+
+
+
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <Greeting />
+
+        <User 
+        name="Askeladd" 
+        age="44" status="Deceased" 
+        href="https://vinlandsaga.fandom.com/wiki/Askeladd"/>
+
+        <User  
+        name="Thorkell" 
+        age="56" status="Alive" 
+        href="https://vinlandsaga.fandom.com/wiki/Thorkell"/>
+
+        <User  
+        name="Thorfinn" 
+        age="18" status="Alive" 
+        href="https://vinlandsaga.fandom.com/wiki/Thorfinn"/>
+
       </header>
     </div>
   );
