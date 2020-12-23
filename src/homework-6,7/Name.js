@@ -8,7 +8,7 @@ class Name extends Component{
 
     render(){
         return(
-            <p>Product name - {this.props.productName}</p>
+            <span>Product name - {this.props.productName}</span>
         )
     }
 

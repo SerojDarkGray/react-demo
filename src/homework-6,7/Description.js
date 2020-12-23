@@ -8,7 +8,7 @@ class Description extends Component{
 
     render(){
         return(
-            <p>Description - {this.props.description}</p>
+            <span> , Description - {this.props.description}</span>
         )
     }
 

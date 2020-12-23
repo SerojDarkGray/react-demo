@@ -6,14 +6,15 @@ import Price from "./Price";
 import Description from "./Description";
 
 class Product extends Component {
-   
-    
+
+
     render() {
+        const { productName, price, description } = this.props;
         return (
             <div >
-               <Name productName={this.props.productName} />
-               <Price price={this.props.price} />
-               <Description description={this.props.description} />
+                <Name productName={productName} />
+                <Price price={price} />
+                <Description description={description} />
             </div>
         );
     }
