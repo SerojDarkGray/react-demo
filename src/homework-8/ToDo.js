@@ -9,7 +9,6 @@ class ToDo extends Component{
     state = {
         tasks: [],
         inputValue: "",
-        temp: ""
     }
 
     hundleChange = (event) =>{
@@ -19,9 +18,16 @@ class ToDo extends Component{
     }
 
 
-    hundleButton = () =>{
+    addTask = () =>{
+        const inputValue = this.state.inputValue.trim();
+        
+        if(!inputValue){
+            return;
+        }
+        const tasks = [...this.state.tasks];
+        tasks.push(inputValue)
         this.setState({
-            temp : this.state.tasks.push(this.state.inputValue),
+            tasks : tasks,
             inputValue : ""
         }); 
         
@@ -29,20 +35,26 @@ class ToDo extends Component{
 
 
     render(){
-        let tasks = this.state.tasks;
-        let ol = tasks.map((el, i) =>{
+        let {tasks, inputValue} = this.state;
+        console.log(tasks);
+        let taskComponents = tasks.map((el, i) =>{
             return (
-                <ol key={i}>{el}</ol>
+                <li key={i}>{el}</li>
             )
         });
         return (
             <div>
             <input 
-            value={this.state.inputValue}
+            value={inputValue}
             type="text" 
             onChange={this.hundleChange}/>
-            <button onClick={this.hundleButton}>Click me</button>
-            {ol}
+            <button 
+            onClick={this.addTask}>
+                Add task
+            </button>
+            <ol>
+                {taskComponents}
+            </ol>
             </div>
         )
     }
