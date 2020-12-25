@@ -14,18 +14,15 @@ class Price extends Component{
         
         let {price} = this.state;
         let priceWithoutSymbol = parseFloat(price);
-        if(price[price.length-1] === "$"){
+        if(price.includes("$")){
             priceWithoutSymbol =  (priceWithoutSymbol * 500) + "֏";
-            this.setState({
-                price :  priceWithoutSymbol
-            });
         }
         else{
             priceWithoutSymbol =  (priceWithoutSymbol / 500) + "$";
-            this.setState({
-                price : priceWithoutSymbol
-            });
         }    
+        this.setState({
+            price :  priceWithoutSymbol
+        });
     }
 
     render(){
