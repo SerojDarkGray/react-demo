@@ -2,8 +2,9 @@
 
 
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap';
-import  '../styles.css';
+import { Container, Row, Col, Button, InputGroup, FormControl, Card } from 'react-bootstrap';
+import styles from './todo.module.css';
+import idGenerator from "../helpers/idGenerator.js"
 class ToDo extends Component {
 
     state = {
@@ -19,48 +20,57 @@ class ToDo extends Component {
 
 
     addTask = () => {
-        const inputValue = {
-            title: this.state.inputValue.trim()
-        };
+        const inputValue = this.state.inputValue.trim()
+        
         
 
         if (!inputValue) {
             return;
         }
-        const tasks = [...this.state.tasks];
-        tasks.push(inputValue)
+
+        const newTask = {
+            _id: idGenerator(),
+            title: inputValue
+        };
+
+        const tasks = [...this.state.tasks, newTask];
         this.setState({
             tasks: tasks,
             inputValue: ""
         });
+    }
+
+    deleteTask = (taskId) => {
+        const newTasks = this.state.tasks.filter((task) => taskId !== task._id );
+        this.setState({
+            tasks: newTasks
+        })
+            
 
     }
 
-
     render() {
         let { tasks, inputValue } = this.state;
-        let taskComponents = tasks.map((el, i) => {
+        let taskComponents = tasks.map((task) => {
             return (
-                <Col key={i} className="task" xs={12} sm={6} md={4} lg={3}><div>Title: {el.title}</div></Col>
+                <Col key={task._id} xs={12} sm={6} md={4} lg={3}>
+                <Card className={styles.task}>
+                    <Card.Body>
+                        <input type="checkbox"/>
+                        <Card.Title>Title: {task.title}</Card.Title>
+                        <Card.Text>
+                        Some quick example text to build on the card.
+                        </Card.Text>
+                        <Button variant="danger" onClick={ () => this.deleteTask(task._id) }>Delete</Button>
+                    </Card.Body>
+                </Card>
+                </Col>
             )
         });
         return (
-            // <div>
-            // <input 
-            // value={inputValue}
-            // type="text" 
-            // onChange={this.hundleChange}/>
-            // <button 
-            // onClick={this.addTask}>
-            //     Add task
-            // </button>
-            // <ol>
-            //     {taskComponents}
-            // </ol>
-            // </div>
             <Container >
                 <Row className="justify-content-center">
-                    <Col xs={12} lg={6} >
+                    <Col xs={12} lg={10} >
                         <InputGroup className="mb-3 mt-4">
                             <FormControl
                                 value={inputValue}
