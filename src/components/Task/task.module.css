@@ -1,0 +1,13 @@
+
+
+
+
+.task{
+    margin: 15px 0;
+    border: 1px solid #17a2b8 !important;
+}
+
+
+.selected{
+    border: 1px solid #dc3545 !important;
+}
