@@ -25,7 +25,7 @@ class NewTask extends Component{
 
     createTask = () =>{
         const title = this.state.title.trim();
-        const description = this.state.title.trim();
+        // const description = this.state.title.trim();
 
 
         if (!title) {
@@ -35,14 +35,14 @@ class NewTask extends Component{
         const newTask = {
             _id: idGenerator(),
             title: title,
-            description: description
+            // description: description
         };
 
         this.props.onAddTask(newTask);
 
         this.setState({
             title: "",
-            description: ""
+            // description: ""
         });
 
     }
@@ -51,7 +51,9 @@ class NewTask extends Component{
 
     render(){
         const {disabled} = this.props;
-        const {title , description} = this.state
+        const {title} = this.state;
+        // const {description} = this.state
+        
         return(
             <InputGroup className="mb-3 mt-4">
                             <FormControl

@@ -6,14 +6,15 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 // import styles from './todo.module.css';
 import Task from '../components/Task/Task';
 import NewTask from '../components/NewTask/NewTask.js';
+import Confirm from '../components/Confirm';
 
 class ToDo extends Component {
 
     state = {
         tasks: [],
         selectedTasks: new Set(),
-        selectAllStatus: true
-
+        selectAllStatus: false,
+        showConfirm : false
     }
 
 
@@ -62,30 +63,41 @@ class ToDo extends Component {
 
         this.setState({
             tasks: newTasks,
-            selectedTasks: new Set()
+            selectedTasks: new Set(),
+            showConfirm: false
+        });
+    }
+
+    toggleConfirm = () =>{
+        this.setState({
+            showConfirm : !this.state.showConfirm
         });
     }
 
     selectAll = () => {
         const tasks = [...this.state.tasks];
+        
+        if(!tasks[0]){
+            return;
+        }
         let tasksId = tasks.map((el) => {
             return el._id;
         })
         this.setState({
             selectedTasks: new Set(tasksId),
-            selectAllStatus: false
+            selectAllStatus: !this.props.selectAllStatus
         });
     }
 
     deselectAll = () => {
         this.setState({
             selectedTasks: new Set(),
-            selectAllStatus: true
+            selectAllStatus: false
         });
     }
 
     render() {
-        let { tasks, selectedTasks, selectAllStatus } = this.state;
+        let { tasks, selectedTasks, selectAllStatus, showConfirm } = this.state;
         let taskComponents = tasks.map((task) => {
             return (
                 <Col key={task._id} xs={12} sm={6} md={4} lg={3}>
@@ -111,19 +123,20 @@ class ToDo extends Component {
                 </Row>
                 <Row className="text-center">
                     <Col>
-                        <Button variant="danger" disabled={!selectedTasks.size} onClick={this.deleteSelected}>Delete Selected</Button>
+                        <Button variant="danger" disabled={!selectedTasks.size} onClick={this.toggleConfirm}>Delete Selected</Button>
                     </Col>
                     <Col >
                         {
-                            selectAllStatus ? <Button variant="info" onClick={this.selectAll}>Select All</Button> : <Button variant="info" onClick={this.deselectAll}>Deselect All</Button>
+                            selectAllStatus ? <Button variant="info" onClick={this.deselectAll}>Deselect All</Button> : <Button variant="info" onClick={this.selectAll}>Select All</Button>
                         }
                     </Col>
                 </Row>
                 <Row>
                     {taskComponents}
                 </Row>
+                {showConfirm && <Confirm onClose = {this.toggleConfirm} onConfirm = {this.deleteSelected} count={selectedTasks.size}/>}
             </Container>
-
+            
         )
     }
 }
