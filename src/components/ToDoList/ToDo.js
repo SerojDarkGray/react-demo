@@ -36,8 +36,9 @@ class ToDo extends Component {
     deleteTask = (taskId) => {
         const newTasks = this.state.tasks.filter((task) => taskId !== task._id);
         this.setState({
-            tasks: newTasks
+            tasks: newTasks,
         })
+
     }
 
 

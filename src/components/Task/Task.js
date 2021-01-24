@@ -15,6 +15,7 @@ class Task extends Component {
         onDeleteTask: PropTypes.func.isRequired,
         disabled: PropTypes.bool.isRequired,
         selected: PropTypes.bool.isRequired,
+        onEditTask: PropTypes.func.isRequired,
     }
 
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import { propTypes } from 'react-bootstrap/esm/Image';
 function Confirm(props) {
 
 
@@ -29,7 +28,7 @@ function Confirm(props) {
 Confirm.propTypes = {
   onClose : PropTypes.func.isRequired,
   onConfirm : PropTypes.func.isRequired,
-  count : PropTypes.bool.isRequired,
+  count : PropTypes.number.isRequired,
 }
 
 
