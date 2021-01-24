@@ -1,53 +1,58 @@
 
-import React, {Component} from 'react';
-import {Card, Button} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import styles from './task.module.css';
-class Task extends Component{
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+class Task extends Component {
 
 
-    state = {
-        selected: false
-        
-    }
 
     static propTypes = {
         data: PropTypes.object.isRequired,
         onSelectTask: PropTypes.func.isRequired,
         onDeleteTask: PropTypes.func.isRequired,
         disabled: PropTypes.bool.isRequired,
-
+        selected: PropTypes.bool.isRequired,
     }
 
 
-    handleChange = () =>{
-        const {onSelectTask, data} = this.props;
+    handleChange = () => {
+        const { onSelectTask, data } = this.props;
         onSelectTask(data._id);
-        this.setState({
-            selected: !this.state.selected,
-        })
     };
 
 
 
-    render(){
+    render() {
         const task = this.props.data;
-        const {selected} = this.state;
-        const {disabled,onDeleteTask} = this.props;
-        return(
+        const { disabled, onDeleteTask, selected, onEditTask } = this.props;
+        return (
             <Card className={`${styles.task} ${selected ? styles.selected : ""}`}>
-                        <Card.Body>
-                            <input onChange={this.handleChange}  type="checkbox" />
-                            <Card.Title>Title: {task.title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card.
-                        </Card.Text>
-                            <Button 
-                            variant="danger" 
-                            disabled={disabled} 
-                            onClick={() => onDeleteTask(task._id)}>Delete</Button>
-                        </Card.Body>
-                    </Card>
+                <Card.Body>
+                    <input onChange={this.handleChange} type="checkbox" checked={selected} />
+                    <Card.Title>Title: {task.title}</Card.Title>
+                    <Card.Text>{task.description}</Card.Text>
+                    <Button
+                        variant="danger"
+                        disabled={disabled}
+                        onClick={() => onDeleteTask(task._id)}
+                        className="m-1"
+                    >
+                        <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                    <Button
+                        variant="warning"
+                        disabled={disabled}
+                        onClick={() => onEditTask(task)}
+                        className="m-1"
+                    >
+                        <FontAwesomeIcon icon={faEdit} />
+                    </Button>
+
+                </Card.Body>
+            </Card>
         )
     }
 

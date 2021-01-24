@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import idGenerator from '../../helpers/idGenerator';
+// import idGenerator from '../../helpers/idGenerator';
 
-class NewTask extends Component {
-
-
-    state = {
-        title: "",
-        description: "",
+class EditTaskModal extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            ...props.task
+        }
     }
 
 
 
-    // variant-1
-    // hundleChange = (value, name) => {
-    //     this.setState({
-    //         [name]: value,
-    //     });
-    // }
 
     hundleChange = (event) => {
         const {name, value} = event.target;
@@ -42,13 +36,12 @@ class NewTask extends Component {
             return;
         }
 
-        const newTask = {
-            _id: idGenerator(),
-            title: title,
-            description: description
-        };
+        this.props.onSave({
+            title,
+            description,
+            _id: this.state._id,
+        });
 
-        this.props.onAddTask(newTask);
 
 
 
@@ -57,8 +50,8 @@ class NewTask extends Component {
 
 
     render() {
-        const { onClose } = this.props;
-
+        const { onClose,  } = this.props;
+        const {title, description} = this.state;
         return (
             <>
             <Modal
@@ -69,16 +62,15 @@ class NewTask extends Component {
                 centered
                 >
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter"> Add new Task</Modal.Title>
+                    <Modal.Title id="contained-modal-title-vcenter"> Edit Task </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
                             <FormControl
                                 onKeyPress={this.handleKeyDown}
-                                // onChange={(event)=>this.hundleChange(event.target.value, 'title' )}
                                 onChange={this.hundleChange}
                                 name="title"
-
+                                value={title}
                                 placeholder="Title"
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
@@ -87,16 +79,16 @@ class NewTask extends Component {
 
                             <Form.Control 
                             as="textarea" 
+                            value={description}
                             placeholder="Description"
                             rows={5} 
                             onChange={this.hundleChange}
                             name="description"
-                            // onChange={(event)=>this.hundleChange(event.target.value, 'description')} 
                             />
 
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="success" onClick={this.createTask}>Add</Button>
+                <Button variant="success" onClick={this.createTask}>Save</Button>
                 <Button onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
@@ -109,11 +101,12 @@ class NewTask extends Component {
 }
 
 
-NewTask.propTypes = {
+EditTaskModal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    onAddTask: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    task: PropTypes.object.isRequired,
 }
 
 
 
-export default NewTask;
+export default EditTaskModal;
