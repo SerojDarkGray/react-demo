@@ -1,11 +1,11 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import styles from './task.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-class Task extends Component {
+class Task extends PureComponent {
 
 
 
