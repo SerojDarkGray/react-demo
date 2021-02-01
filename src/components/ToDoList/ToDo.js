@@ -147,23 +147,55 @@ class ToDo extends Component {
 
 
         const { selectedTasks, tasks } = this.state;
-        const newTasks = tasks.filter((task) => {
-            if (selectedTasks.has(task._id)) {
-                return false;
+
+        const body = {
+            tasks: [...selectedTasks]
+        };
+
+        fetch(`http://localhost:3001/task`, {
+            method: "PATCH",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": 'application/json'
             }
-            else {
-                return true;
+        })
+        .then(async(response) => {
+
+            const res = await response.json();
+
+            if(response.status >=400 && response.status < 600){
+                if(res.error){
+                    throw res.error;
+                }
+                else{
+                    throw new Error('Something went wrong!')
+                }
             }
-        });
+            
+            const newTasks = tasks.filter((task) => {
+                if (selectedTasks.has(task._id)) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
+    
+    
+    
+            this.setState({
+                tasks: newTasks,
+                selectedTasks: new Set(),
+                showConfirm: false,
+                selectAllStatus: false
+            });
+            
+        })
+        .catch((error)=>{
+            console.log('catch error', error)
 
-
-
-        this.setState({
-            tasks: newTasks,
-            selectedTasks: new Set(),
-            showConfirm: false,
-            selectAllStatus: false
-        });
+        })
+       
     }
 
     toggleConfirm = () => {
@@ -244,9 +276,6 @@ class ToDo extends Component {
 
         })
 
-
-        
-        
 
     }
 
