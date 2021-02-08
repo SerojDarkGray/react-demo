@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import idGenerator from '../../helpers/idGenerator';
+// import idGenerator from '../../helpers/idGenerator';
 
-class NewTask extends Component {
+class NewTask extends PureComponent {
 
 
     state = {
@@ -43,7 +43,6 @@ class NewTask extends Component {
         }
 
         const newTask = {
-            _id: idGenerator(),
             title: title,
             description: description
         };
