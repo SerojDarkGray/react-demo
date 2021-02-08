@@ -6,7 +6,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
-import EditTaskModal from '../EditTaskModal'
+import EditTaskModal from '../EditTaskModal';
 
 class ToDo extends Component {
 
@@ -338,8 +338,6 @@ class ToDo extends Component {
                         onClose={() => this.handleEditTask(null)}
                         onSave={this.handleSaveTask}
                         task={editTask}
-
-
                     />
                 }
 

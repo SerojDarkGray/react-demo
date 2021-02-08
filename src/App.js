@@ -31,11 +31,7 @@ function App() {
           exact = {true}
           />
 
-          <Route
-          path='/task'
-          component = {SingleTask}
-          exact = {true}
-          />
+          
 
           <Route
           path='/about'
@@ -48,8 +44,12 @@ function App() {
           component = {Contact}
           exact
           />
-
-
+        
+          <Route
+          path='/task/:taskId'
+          component = {SingleTask}
+          exact = {true}
+          />
 
 
 
