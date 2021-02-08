@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import formatDate from "../helpers/formatDate";
+import "../styles.css"
 // import idGenerator from '../../helpers/idGenerator';
 
 class EditTaskModal extends Component {
     constructor(props){
         super(props);
+        const {date} = props.task
         this.state = {
-            ...props.task
+            ...props.task,
+            date : date ? new Date(date) : new Date()
         }
     }
 
+
+    handleChangeDate = (dateValue) =>{
+        this.setState({
+            date: dateValue || new Date()
+        });
+    };
 
 
 
@@ -40,9 +52,8 @@ class EditTaskModal extends Component {
             title,
             description,
             _id: this.state._id,
+            date: formatDate(this.state.date.toISOString())
         });
-
-
 
 
     }
@@ -86,6 +97,14 @@ class EditTaskModal extends Component {
                             name="description"
                             />
 
+                            <DatePicker
+                            className="date"
+                            selected={this.state.date}
+                            minDate={new Date()}
+                            onChange={this.handleChangeDate} 
+                            />
+
+                            
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="success" onClick={this.createTask}>Save</Button>

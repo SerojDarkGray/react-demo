@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import styles from './task.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import formatDate from "../../helpers/formatDate"
 class Task extends PureComponent {
 
 
@@ -34,7 +35,8 @@ class Task extends PureComponent {
                 <Card.Body>
                     <input onChange={this.handleChange} type="checkbox" checked={selected} />
                     <Card.Title>Title: {task.title}</Card.Title>
-                    <Card.Text>{task.description}</Card.Text>
+                    <Card.Text>Description: {task.description}</Card.Text>
+                    <Card.Text>Date: {formatDate(task.date)}</Card.Text>
                     <Button
                         variant="danger"
                         disabled={disabled}

@@ -1,6 +1,10 @@
 import React, { PureComponent } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
-import PropTypes from 'prop-types'
+import "../../styles.css"
+import PropTypes from 'prop-types';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import formatDate from "../../helpers/formatDate"
 // import idGenerator from '../../helpers/idGenerator';
 
 class NewTask extends PureComponent {
@@ -9,9 +13,8 @@ class NewTask extends PureComponent {
     state = {
         title: "",
         description: "",
+        date : new Date()
     }
-
-
 
     // variant-1
     // hundleChange = (value, name) => {
@@ -25,13 +28,20 @@ class NewTask extends PureComponent {
         this.setState({
             [name]: value,
         });
-    }
+    };
 
     handleKeyDown = (event) => {
         if (event.key === "Enter") {
             this.createTask();
         }
-    }
+    };
+
+    handleChangeDate = (dateValue) =>{
+        this.setState({
+            date: dateValue || new Date()
+        });
+    };
+
 
     createTask = () => {
         const title = this.state.title.trim();
@@ -44,12 +54,11 @@ class NewTask extends PureComponent {
 
         const newTask = {
             title: title,
-            description: description
+            description: description,
+            date: formatDate(this.state.date.toISOString())
         };
 
         this.props.onAddTask(newTask);
-
-
 
     }
 
@@ -92,6 +101,14 @@ class NewTask extends PureComponent {
                             name="description"
                             // onChange={(event)=>this.hundleChange(event.target.value, 'description')} 
                             />
+
+                            <DatePicker
+                            className="date"
+                            selected={this.state.date}
+                            minDate={new Date()}
+                            onChange={this.handleChangeDate} 
+                            />
+
 
                 </Modal.Body>
                 <Modal.Footer>
