@@ -82,6 +82,7 @@ export default class SingleTask extends Component {
 
 
     handleSaveTask = (editedTask) =>{
+        console.log('editedTask', editedTask)
         fetch(`http://localhost:3001/task/${editedTask._id}`, {
             method: "PUT",
             body : JSON.stringify(editedTask),
@@ -104,8 +105,8 @@ export default class SingleTask extends Component {
 
 
             this.setState({
-            tasks : res,
-            openEditModal: false,
+                task : res,
+                openEditModal: false,
             });
 
             
