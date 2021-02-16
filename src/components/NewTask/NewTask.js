@@ -1,19 +1,29 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
 import "../../styles.css"
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import formatDate from "../../helpers/formatDate"
+import formatDate from "../../helpers/formatDate";
+
 // import idGenerator from '../../helpers/idGenerator';
 
 class NewTask extends PureComponent {
+    constructor(props){
+        super(props)
+        this.inputTitleRef = createRef();
+    }
 
 
     state = {
         title: "",
         description: "",
         date : new Date()
+    }
+
+
+    componentDidMount(){
+        this.inputTitleRef.current.focus();
     }
 
     // variant-1
@@ -82,6 +92,7 @@ class NewTask extends PureComponent {
                 <Modal.Body>
 
                             <FormControl
+                                ref={this.inputTitleRef}
                                 onKeyPress={this.handleKeyDown}
                                 // onChange={(event)=>this.hundleChange(event.target.value, 'title' )}
                                 onChange={this.hundleChange}
