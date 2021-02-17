@@ -1,6 +1,14 @@
 
 
 
+
+
+.link{
+    color: white;
+    padding: 8px;
+    margin-right: 5px;
+}
+
 .active{
     color: red;
 }

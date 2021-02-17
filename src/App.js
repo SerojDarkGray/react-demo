@@ -12,6 +12,7 @@ import Contact from './components/pages/Contact/Contact';
 import NotFound from './components/pages/NotFound/NotFound';
 import NavMenu from './components/NavMenu/NavMenu';
 import SingleTask from './components/pages/SingleTask/SingleTask';
+import Counter from './components/pages/Counter/Counter';
 
 
 
@@ -48,6 +49,12 @@ function App() {
           <Route
           path='/task/:taskId'
           component = {SingleTask}
+          exact = {true}
+          />
+
+          <Route
+          path='/counter'
+          component = {Counter}
           exact = {true}
           />
 
