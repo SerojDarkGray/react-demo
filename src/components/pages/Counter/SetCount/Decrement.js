@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) =>{
 
     return {
         onChange: ()=>{
-            dispatch({type: 'MINUS-COUNT'});
+            dispatch({type: 'DECREMENT'});
         }
     }
 }

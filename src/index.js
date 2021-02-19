@@ -8,20 +8,20 @@ import { createStore } from 'redux';
 
 function reducer(state = { count: 0 }, action) {
 
-  if (action.type === "PLUS-COUNT") {
-    return {
-      count: state.count + 1
+
+  switch(action.type){
+    case 'INCREMENT':{
+      return {
+        count: state.count + 1
+      }
     }
-  }
-
-  if (action.type === "MINUS-COUNT") {
-    return {
-      count: state.count - 1
+    case 'DECREMENT':{
+      return {
+        count: state.count - 1
+      }
     }
+    default : return state;
   }
-
-
-  return state;
 
 }
 
