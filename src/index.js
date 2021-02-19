@@ -4,28 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-function reducer(state = { count: 0 }, action) {
-
-
-  switch(action.type){
-    case 'INCREMENT':{
-      return {
-        count: state.count + 1
-      }
-    }
-    case 'DECREMENT':{
-      return {
-        count: state.count - 1
-      }
-    }
-    default : return state;
-  }
-
-}
-
-const store = createStore(reducer)
+import {store} from './store/store';
 
 
 ReactDOM.render(

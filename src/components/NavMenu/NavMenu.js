@@ -14,7 +14,6 @@ export default function NavMenu(){
                 <NavLink to="/" activeClassName={styles.active} className={styles.link} exact>Home</NavLink>
                 <NavLink to="/about" activeClassName={styles.active} className={styles.link} exact>About us</NavLink>
                 <NavLink to="/contact" activeClassName={styles.active} className={styles.link} exact>Contact us</NavLink>
-                <NavLink to="/counter" activeClassName={styles.active} className={styles.link} exact>Counter</NavLink>
             </Nav>
         </Navbar>
     );

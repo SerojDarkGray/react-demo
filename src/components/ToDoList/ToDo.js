@@ -7,11 +7,13 @@ import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 import EditTaskModal from '../EditTaskModal';
+import { connect } from 'react-redux';
+import request from '../../helpers/request';
+
 
 class ToDo extends Component {
 
     state = {
-        tasks: [],
         selectedTasks: new Set(),
         selectAllStatus: false,
         showConfirm: false,
@@ -20,36 +22,9 @@ class ToDo extends Component {
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
 
-        fetch("http://localhost:3001/task", {
-            method: "GET",
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        })
-        .then(async(response) => {
-
-            const res = await response.json();
-
-            if(response.status >=400 && response.status < 600){
-                if(res.error){
-                    throw res.error;
-                }
-                else{
-                    throw new Error('Something went wrong!')
-                }
-            }
-            
-            this.setState({
-                tasks: res,      
-            });
-            
-        })
-        .catch((error)=>{
-            console.log('catch error', error)
-
-        })
+        this.props.getTasks();
 
     }
 
@@ -65,31 +40,31 @@ class ToDo extends Component {
                 "Content-Type": 'application/json'
             }
         })
-        .then(async(response) => {
+            .then(async (response) => {
 
-            const res = await response.json();
+                const res = await response.json();
 
-            if(response.status >=400 && response.status < 600){
-                if(res.error){
-                    throw res.error;
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!')
+                    }
                 }
-                else{
-                    throw new Error('Something went wrong!')
-                }
-            }
-            
-            const tasks = [...this.state.tasks, res];
 
-            this.setState({
-                tasks: tasks,
-                openNewTaskModal: false,
-            });
-            
-        })
-        .catch((error)=>{
-            console.log('catch error', error)
+                const tasks = [...this.state.tasks, res];
 
-        })
+                this.setState({
+                    tasks: tasks,
+                    openNewTaskModal: false,
+                });
+
+            })
+            .catch((error) => {
+                console.log('catch error', error)
+
+            })
 
 
     }
@@ -102,29 +77,29 @@ class ToDo extends Component {
                 "Content-Type": 'application/json'
             }
         })
-        .then(async(response) => {
+            .then(async (response) => {
 
-            const res = await response.json();
+                const res = await response.json();
 
-            if(response.status >=400 && response.status < 600){
-                if(res.error){
-                    throw res.error;
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!')
+                    }
                 }
-                else{
-                    throw new Error('Something went wrong!')
-                }
-            }
-            
-            const newTasks = this.state.tasks.filter((task) => taskId !== task._id);
-            this.setState({
-            tasks: newTasks,
+
+                const newTasks = this.state.tasks.filter((task) => taskId !== task._id);
+                this.setState({
+                    tasks: newTasks,
+                })
+
             })
-            
-        })
-        .catch((error)=>{
-            console.log('catch error', error)
+            .catch((error) => {
+                console.log('catch error', error)
 
-        })
+            })
 
     }
 
@@ -158,43 +133,43 @@ class ToDo extends Component {
                 "Content-Type": 'application/json'
             }
         })
-        .then(async(response) => {
+            .then(async (response) => {
 
-            const res = await response.json();
+                const res = await response.json();
 
-            if(response.status >=400 && response.status < 600){
-                if(res.error){
-                    throw res.error;
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!')
+                    }
                 }
-                else{
-                    throw new Error('Something went wrong!')
-                }
-            }
-            
-            const newTasks = tasks.filter((task) => {
-                if (selectedTasks.has(task._id)) {
-                    return false;
-                }
-                else {
-                    return true;
-                }
-            });
-    
-    
-    
-            this.setState({
-                tasks: newTasks,
-                selectedTasks: new Set(),
-                showConfirm: false,
-                selectAllStatus: false
-            });
-            
-        })
-        .catch((error)=>{
-            console.log('catch error', error)
 
-        })
-       
+                const newTasks = tasks.filter((task) => {
+                    if (selectedTasks.has(task._id)) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+
+
+
+                this.setState({
+                    tasks: newTasks,
+                    selectedTasks: new Set(),
+                    showConfirm: false,
+                    selectAllStatus: false
+                });
+
+            })
+            .catch((error) => {
+                console.log('catch error', error)
+
+            })
+
     }
 
     toggleConfirm = () => {
@@ -242,44 +217,45 @@ class ToDo extends Component {
 
         fetch(`http://localhost:3001/task/${editedTask._id}`, {
             method: "PUT",
-            body : JSON.stringify(editedTask),
+            body: JSON.stringify(editedTask),
             headers: {
                 "Content-Type": 'application/json'
             }
         })
-        .then(async(response) => {
+            .then(async (response) => {
 
-            const res = await response.json();
+                const res = await response.json();
 
-            if(response.status >=400 && response.status < 600){
-                if(res.error){
-                    throw res.error;
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error;
+                    }
+                    else {
+                        throw new Error('Something went wrong!')
+                    }
                 }
-                else{
-                    throw new Error('Something went wrong!')
-                }
-            }
-            
-            const tasks = this.state.tasks;
-            const foundIndex = tasks.findIndex((task) => task._id === res._id);
-            tasks[foundIndex] = res;
 
-            this.setState({
-            tasks : tasks,
-            editTask: null,
+                const tasks = this.state.tasks;
+                const foundIndex = tasks.findIndex((task) => task._id === res._id);
+                tasks[foundIndex] = res;
+
+                this.setState({
+                    tasks: tasks,
+                    editTask: null,
+                })
+
             })
-            
-        })
-        .catch((error)=>{
-            console.log('catch error', error)
+            .catch((error) => {
+                console.log('catch error', error)
 
-        })
+            })
 
 
     }
 
     render() {
-        let { tasks, selectedTasks, selectAllStatus, showConfirm, openNewTaskModal, editTask } = this.state;
+        let { selectedTasks, selectAllStatus, showConfirm, openNewTaskModal, editTask } = this.state;
+        const { tasks } = this.props;
         let taskComponents = tasks.map((task) => {
             return (
                 <Col key={task._id} xs={12} sm={6} md={4} lg={3}>
@@ -348,5 +324,36 @@ class ToDo extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks
+    }
+}
 
-export default ToDo;
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         getTasks: () => {
+//             request("http://localhost:3001/task")
+//                 .then((tasks) => {
+//                     dispatch({ type: 'GET_TASKS', tasks: tasks })
+//                 })
+//         }
+//     }
+// }
+
+// redux-thunk 
+const mapDispatchToProps = {
+    getTasks: () => {
+        return (dispatch) => {
+            request("http://localhost:3001/task")
+                .then((tasks) => {
+                    dispatch({ type: 'GET_TASKS', tasks: tasks })
+                })
+        }
+
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDo);
