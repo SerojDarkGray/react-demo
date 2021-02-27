@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import formatDate from "../helpers/formatDate";
-import "../styles.css"
+import "../styles.css";
+import { connect } from 'react-redux';
+import { editTask } from '../store/actions';
 // import idGenerator from '../../helpers/idGenerator';
 
 class EditTaskModal extends Component {
@@ -53,7 +55,7 @@ class EditTaskModal extends Component {
             return;
         }
 
-        this.props.onSave({
+        this.props.editTask({
             title,
             description,
             _id: this.state._id,
@@ -128,10 +130,11 @@ class EditTaskModal extends Component {
 
 EditTaskModal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
     task: PropTypes.object.isRequired,
+}
+const mapDispatchToProps = {
+    editTask,
 }
 
 
-
-export default EditTaskModal;
+export default connect(null,mapDispatchToProps)(EditTaskModal);
