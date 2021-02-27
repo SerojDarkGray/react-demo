@@ -1,45 +1,54 @@
 
+
+import * as actionTypes from './actionsTypes';
+
 const defaultState = {
     tasks: [],
     addTaskSuccess: false,
     deleteTasksSuccess : false,
     editTasksSuccess : false,
+    loading : false,
 }
 
 export default function reducer(state = defaultState, action) {
 
 
     switch (action.type) {
-        case 'PENDING': {
+        case actionTypes.PENDING: {
             return {
                 ...state,
+                loading : true,
                 addTaskSuccess: false,
                 deleteTasksSuccess : false,
                 editTasksSuccess : false,
+
             };
         }
-        case 'GET_TASKS': {
+        case actionTypes.GET_TASKS: {
             return {
                 ...state,
-                tasks: action.tasks
+                tasks: action.tasks,
+                loading : false
             };
         }
-        case 'ADD_TASK': {
+        case actionTypes.ADD_TASK: {
             return {
                 ...state,
                 tasks: [...state.tasks, action.task],
-                addTaskSuccess: true
+                addTaskSuccess: true,
+                loading : false
             }
         }
-        case 'DELETE_TASK': {
+        case actionTypes.DELETE_TASK: {
                 const newTasks = state.tasks.filter((task) => action.taskId !== task._id);
             return {
                 ...state,
                 tasks: newTasks,
+                loading : false,
             }
         }
       
-        case 'DELETE_SELECTED_TASKS': {
+        case actionTypes.DELETE_SELECTED_TASKS: {
             const newTasks = state.tasks.filter((task) => {
                 if (action.taskIds.has(task._id)) {
                     return false;
@@ -52,16 +61,18 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 tasks: newTasks,
                 deleteTasksSuccess : true,
+                loading : false,
             }
         }
-        case 'EDIT_TASK': {
+        case actionTypes.EDIT_TASK: {
                 const tasks = [...state.tasks]
                 const foundIndex = tasks.findIndex((task) => task._id === action.editedTask._id);
                 tasks[foundIndex] = action.editedTask;
             return {
                 ...state,
                 tasks : tasks,
-                editTasksSuccess : true
+                editTasksSuccess : true,
+                loading : false
             }
         }
 

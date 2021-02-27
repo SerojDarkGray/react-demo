@@ -12,10 +12,11 @@ import Contact from './components/pages/Contact/Contact';
 import NotFound from './components/pages/NotFound/NotFound';
 import NavMenu from './components/NavMenu/NavMenu';
 import SingleTask from './components/pages/SingleTask/SingleTask';
+import Spinner from './components/Spinner/Spinner';
+import {connect} from 'react-redux';
 
 
-
-function App() {
+function App(props) {
   return (
     <div className="App">
       
@@ -61,8 +62,21 @@ function App() {
         </Switch>
   
       </BrowserRouter>
+
+      {props.loading && <Spinner />}
+
     </div>
+
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return ({
+    loading : state.loading
+  });
+}
+  
+
+
+
+export default connect(mapStateToProps)(App);
