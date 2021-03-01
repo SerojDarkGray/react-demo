@@ -7,7 +7,6 @@ import formatDate from "../helpers/formatDate";
 import "../styles.css";
 import { connect } from 'react-redux';
 import { editTask } from '../store/actions';
-// import idGenerator from '../../helpers/idGenerator';
 
 class EditTaskModal extends Component {
     constructor(props){
@@ -55,12 +54,13 @@ class EditTaskModal extends Component {
             return;
         }
 
-        this.props.editTask({
+        const editedTask = {
             title,
             description,
             _id: this.state._id,
             date: formatDate(this.state.date.toISOString())
-        });
+        }
+        this.props.editTask(editedTask, this.props.from);
 
 
     }

@@ -1,13 +1,31 @@
 
 import request from '../helpers/request';
 import * as actionTypes from './actionsTypes';
+
+
+
 export function getTasks() {
-    
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING });
         request("http://localhost:3001/task")
             .then((tasks) => {
-                dispatch({ type: 'GET_TASKS', tasks: tasks })
+                dispatch({ type: actionTypes.GET_TASKS, tasks: tasks })
+            })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
+            })
+    }
+}
+
+export function getTask(taskId) {
+    return (dispatch) => {
+        dispatch({ type: actionTypes.PENDING });
+        request(`http://localhost:3001/task/${taskId}`)
+            .then((task) => {
+                dispatch({ type: actionTypes.GET_TASK, task })
+            })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
             })
     }
 }
@@ -19,6 +37,9 @@ export function addTask(newTask) {
             .then((task) => {
                 dispatch({ type: actionTypes.ADD_TASK, task: task })
             })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
+            })
     }
 }
 
@@ -27,7 +48,10 @@ export function deleteTask(taskId) {
         dispatch({ type: actionTypes.PENDING });
         request(`http://localhost:3001/task/${taskId}`, 'DELETE')
             .then(() => {
-                dispatch({ type: actionTypes.DELETE_TASK, taskId})
+                dispatch({ type: actionTypes.DELETE_TASK, taskId })
+            })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
             })
     }
 }
@@ -35,20 +59,26 @@ export function deleteTask(taskId) {
 export function deleteSelectedTasks(taskIds) {
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING });
-        request("http://localhost:3001/task", 'PATCH', { tasks : [...taskIds] })
+        request("http://localhost:3001/task", 'PATCH', { tasks: [...taskIds] })
             .then(() => {
-                dispatch({ type: actionTypes.DELETE_SELECTED_TASKS, taskIds})
+                dispatch({ type: actionTypes.DELETE_SELECTED_TASKS, taskIds })
+            })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
             })
     }
 }
 
 
-export function editTask(data) {
+export function editTask(data, from) {
     return (dispatch) => {
         dispatch({ type: actionTypes.PENDING });
         request(`http://localhost:3001/task/${data._id}`, 'PUT', data)
             .then((editedTask) => {
-                dispatch({ type: actionTypes.EDIT_TASK, editedTask : editedTask})
+                dispatch({ type: actionTypes.EDIT_TASK, editedTask , from})
+            })
+            .catch((error) => {
+                dispatch({ type: actionTypes.ERROR, error: error.message });
             })
     }
 }
