@@ -4,7 +4,7 @@ import "../../styles.css"
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import formatDate from "../../helpers/formatDate";
+import {formatDate} from "../../helpers/utils";
 import { connect } from 'react-redux';
 import {addTask} from '../../store/actions';
 // import idGenerator from '../../helpers/idGenerator';

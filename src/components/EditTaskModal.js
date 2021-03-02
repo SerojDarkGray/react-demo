@@ -3,7 +3,7 @@ import { FormControl, Button, Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import formatDate from "../helpers/formatDate";
+import {formatDate} from "../helpers/utils";
 import "../styles.css";
 import { connect } from 'react-redux';
 import { editTask } from '../store/actions';

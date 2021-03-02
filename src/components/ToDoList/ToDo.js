@@ -7,6 +7,7 @@ import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Confirm from '../Confirm';
 import EditTaskModal from '../EditTaskModal';
+import Search from '../search/search'
 import { connect } from 'react-redux';
 import { getTasks, deleteTask, deleteSelectedTasks, } from '../../store/actions';
 
@@ -143,6 +144,11 @@ class ToDo extends Component {
         });
         return (
             <Container >
+                <Row>
+                    <Col>
+                        <Search />
+                    </Col>
+                </Row>
                 <Row className="text-center m-4">
 
                     <Col>
