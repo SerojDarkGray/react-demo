@@ -157,10 +157,11 @@ function Search(props) {
             </InputGroup>
 
             {
-                dateOptions.map((option)=>(
-                    <div>
+                dateOptions.map((option, index)=>(
+                    <div key={index}>
                         <span>{option.label}</span>
                         <DatePicker
+                            
                             selected={dates[option.value]}
                             onChange={(value)=> handleChangeDate(value, option.value)} 
                             />
