@@ -16,6 +16,7 @@ export default class SingleTask extends Component {
 
 
     componentDidMount() {
+        console.log(this.props);
         const taskId = this.props.match.params.taskId
 
         fetch(`http://localhost:3001/task/${taskId}`, {

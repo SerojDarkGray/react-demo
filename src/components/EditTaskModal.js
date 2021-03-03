@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { FormControl, Button, Modal, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DatePicker from "react-datepicker";
@@ -15,8 +15,13 @@ class EditTaskModal extends Component {
             ...props.task,
             date : date ? new Date(date) : new Date()
         }
+        this.inputTitleRef = createRef();
     }
 
+    
+    componentDidMount(){
+        this.inputTitleRef.current.focus();
+    }
 
     handleChangeDate = (dateValue) =>{
         this.setState({
@@ -78,6 +83,7 @@ class EditTaskModal extends Component {
                 <Modal.Body>
 
                             <FormControl
+                                ref={this.inputTitleRef}
                                 onKeyPress={this.handleKeyDown}
                                 onChange={this.hundleChange}
                                 name="title"
