@@ -144,11 +144,10 @@ class ToDo extends Component {
         });
         return (
             <Container >
-                <Row>
-                    <Col>
-                        <Search />
-                    </Col>
-                </Row>
+
+
+                <Search />
+
                 <Row className="text-center m-4">
 
                     <Col>
